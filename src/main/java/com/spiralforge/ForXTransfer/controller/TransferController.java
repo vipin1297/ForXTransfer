@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spiralforge.ForXTransfer.constants.ApplicationConstants;
 import com.spiralforge.ForXTransfer.dto.ExchangeResponseDto;
-import com.spiralforge.ForXTransfer.service.TransactionService;
+import com.spiralforge.ForXTransfer.service.TransferService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/transfers")
 @Slf4j
-public class TransactionController {
+public class TransferController {
 
-	Logger logger = LoggerFactory.getLogger(TransactionController.class);
+	Logger logger = LoggerFactory.getLogger(TransferController.class);
 
 	@Autowired
-	private TransactionService transactionService;
+	private TransferService transferService;
 
-	@GetMapping("/customers/{customerId}/transfer/preview")
+	@GetMapping("/customers/{customerId}/preview")
 	public ResponseEntity<ExchangeResponseDto> previewExchangeAmount(@PathVariable("customerId") Integer customerId ,@RequestParam("base") String base,
 			@RequestParam("quote") String quote, @RequestParam("amount") Double amount) {
 		logger.info("For preview exchange amount");
-		ExchangeResponseDto exchangeResponseDto = transactionService.previewExchangeAmount(customerId, base, quote, amount);
+		ExchangeResponseDto exchangeResponseDto = transferService.previewExchangeAmount(customerId, base, quote, amount);
 		if (Objects.isNull(exchangeResponseDto)) {
 			exchangeResponseDto = new ExchangeResponseDto();
 			exchangeResponseDto.setMessage(ApplicationConstants.FAILED);
