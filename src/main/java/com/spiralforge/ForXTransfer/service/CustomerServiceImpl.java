@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spiralforge.ForXTransfer.constants.ApplicationConstants;
-import com.spiralforge.ForXTransfer.controller.CustomerController;
 import com.spiralforge.ForXTransfer.dto.AccountResponseDto;
 import com.spiralforge.ForXTransfer.dto.LoginRequestDto;
 import com.spiralforge.ForXTransfer.dto.LoginResponseDto;
@@ -36,12 +35,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
-	
+
 	/**
 	 * The Constant log.
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
 	@Autowired
 	CustomerRepository customerReopsitory;
 
