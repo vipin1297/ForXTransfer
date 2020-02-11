@@ -12,9 +12,17 @@ import com.spiralforge.ForXTransfer.dto.ErrorDto;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(CustomerNotFoundException.class)
-	public ResponseEntity<ErrorDto> customerNotFoundExceptionException() {
+	public ResponseEntity<ErrorDto> customerNotFoundException() {
 		ErrorDto errorDto = new ErrorDto();
 		errorDto.setMessage(ApplicationConstants.CUSTOMER_NOTFOUND_MESSAGE);
+		errorDto.setStatusCode(ApplicationConstants.NOTFOUND_CODE);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
+	}
+
+	@ExceptionHandler(FundTransferEmptyException.class)
+	public ResponseEntity<ErrorDto> fundTransferEmptyException() {
+		ErrorDto errorDto = new ErrorDto();
+		errorDto.setMessage(ApplicationConstants.FUNDTRANSFER_LIST_EMPTY_MESSAGE);
 		errorDto.setStatusCode(ApplicationConstants.NOTFOUND_CODE);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
 	}
