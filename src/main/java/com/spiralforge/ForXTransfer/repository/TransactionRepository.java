@@ -8,4 +8,5 @@ import com.spiralforge.ForXTransfer.entity.Transaction;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 
+
 }

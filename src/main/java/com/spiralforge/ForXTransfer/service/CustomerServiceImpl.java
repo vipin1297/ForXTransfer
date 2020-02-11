@@ -1,7 +1,9 @@
 package com.spiralforge.ForXTransfer.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -50,12 +52,30 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	TransactionRepository transactionRepository;
 
+	/**
+	 * @author Muthu
+	 * 
+	 *         Method is used to check whether he/she is valid customer or not
+	 * 
+	 * 
+	 * @param loginRequestDto which takes the input parameter as mobile number and
+	 *                        password
+	 * @return LoginResponseDto which returns the customer id and his/her name
+	 * @throws CustomerNotFoundException thrown when the customer credentials are
+	 *                                   invalid
+	 */
 	@Override
-	public LoginResponseDto checkLogin(@Valid LoginRequestDto loginRequestDto) {
+	public LoginResponseDto checkLogin(@Valid LoginRequestDto loginRequestDto) throws CustomerNotFoundException {
 		log.info("For checking whether the credentials are valid or not");
 		Customer customer = customerReopsitory.findByMobileNumberAndPassword(loginRequestDto.getMobileNumber(),
 				loginRequestDto.getPassword());
-		return null;
+		if (Objects.isNull(customer)) {
+			log.error(ApplicationConstants.CUSTOMER_NOTFOUND_MESSAGE);
+			throw new CustomerNotFoundException(ApplicationConstants.CUSTOMER_NOTFOUND_MESSAGE);
+		}
+		LoginResponseDto loginResponseDto = new LoginResponseDto();
+		BeanUtils.copyProperties(customer, loginResponseDto);
+		return loginResponseDto;
 	}
 
 	/**

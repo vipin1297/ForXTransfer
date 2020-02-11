@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,18 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 
+	/**
+	 * @author Muthu
+	 * 
+	 *         Method is used to check whether he/she is valid customer or not
+	 * 
+	 * 
+	 * @param loginRequestDto which takes the input parameter as mobile number and
+	 *                        password
+	 * @return LoginResponseDto which returns the customer id and his/her name
+	 * @throws CustomerNotFoundException thrown when the customer credentials are
+	 *                                   invalid
+	 */
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDto> checkLogin(@Valid @RequestBody LoginRequestDto loginRequestDto)
 			throws CustomerNotFoundException {
