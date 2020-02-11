@@ -13,4 +13,5 @@ public class ApplicationConstants {
 	public static final String TRANSACTION_FAILED="Failed";
 	public static final String FUNDTRANSFER_LIST_EMPTY_MESSAGE="There are no pending transfers";
 	public static final String LOGIN_SUCCESSMESSAGE = "You can happily enjoy the western transactions";
+	public static final String ACCOUNT_NOTFOUND_MESSAGE = "Account not found";
 }

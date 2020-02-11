@@ -49,19 +49,20 @@ public class TransactionServiceImpl implements TransactionService {
 				fundTransferRepository.save(transferDetails);
 			}
 			Long fromAccount = transferDetails.getAccount().getAccountNumber();
-			Account debitAccount=accountRepository.findByAccountNumber(fromAccount);
-			if(Objects.isNull(debitAccount)) {
+			Account debitAccount = accountRepository.findByAccountNumber(fromAccount);
+			if (Objects.isNull(debitAccount)) {
 				log.info(ApplicationConstants.ACCOUNT_INVALID);
 				transferDetails.setTransferStatus(ApplicationConstants.ACCOUNT_INVALID);
 				fundTransferRepository.save(transferDetails);
 			}
-			if(creditAccount.equals(debitAccount.getAccountNumber())) {
+			if (creditAccount.equals(debitAccount.getAccountNumber())) {
 				log.info(ApplicationConstants.TRANSACTION_FAILED);
 				transferDetails.setTransferStatus(ApplicationConstants.TRANSACTION_FAILED);
 				fundTransferRepository.save(transferDetails);
 			}
-			Double debitAccountBalance=debitAccount.getBalance();
-			
+			Double transferAmount = transferDetails.getTransferAmount();
+			Double chargeAmount = transferDetails.getChargeAmount();
+
 		});
 	}
 }
