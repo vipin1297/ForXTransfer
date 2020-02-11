@@ -1,7 +1,9 @@
 package com.spiralforge.ForXTransfer.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spiralforge.ForXTransfer.constants.ApplicationConstants;
-import com.spiralforge.ForXTransfer.controller.CustomerController;
 import com.spiralforge.ForXTransfer.dto.AccountResponseDto;
 import com.spiralforge.ForXTransfer.dto.LoginRequestDto;
 import com.spiralforge.ForXTransfer.dto.LoginResponseDto;
@@ -36,12 +37,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
-	
+
 	/**
 	 * The Constant log.
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
 	@Autowired
 	CustomerRepository customerReopsitory;
 
@@ -51,12 +52,30 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	TransactionRepository transactionRepository;
 
+	/**
+	 * @author Muthu
+	 * 
+	 *         Method is used to check whether he/she is valid customer or not
+	 * 
+	 * 
+	 * @param loginRequestDto which takes the input parameter as mobile number and
+	 *                        password
+	 * @return LoginResponseDto which returns the customer id and his/her name
+	 * @throws CustomerNotFoundException thrown when the customer credentials are
+	 *                                   invalid
+	 */
 	@Override
-	public LoginResponseDto checkLogin(@Valid LoginRequestDto loginRequestDto) {
+	public LoginResponseDto checkLogin(@Valid LoginRequestDto loginRequestDto) throws CustomerNotFoundException {
 		log.info("For checking whether the credentials are valid or not");
 		Customer customer = customerReopsitory.findByMobileNumberAndPassword(loginRequestDto.getMobileNumber(),
 				loginRequestDto.getPassword());
-		return null;
+		if (Objects.isNull(customer)) {
+			log.error(ApplicationConstants.CUSTOMER_NOTFOUND_MESSAGE);
+			throw new CustomerNotFoundException(ApplicationConstants.CUSTOMER_NOTFOUND_MESSAGE);
+		}
+		LoginResponseDto loginResponseDto = new LoginResponseDto();
+		BeanUtils.copyProperties(customer, loginResponseDto);
+		return loginResponseDto;
 	}
 
 	/**

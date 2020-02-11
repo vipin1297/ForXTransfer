@@ -20,4 +20,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	 */
 	List<Account> findAccountByCustomer(Optional<Customer> customer);
 
+	Account findByAccountNumber(Long fromAccount);
+
 }
