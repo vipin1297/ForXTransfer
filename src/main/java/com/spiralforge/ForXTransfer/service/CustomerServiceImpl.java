@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spiralforge.ForXTransfer.dto.LoginRequestDto;
 import com.spiralforge.ForXTransfer.dto.LoginResponseDto;
+import com.spiralforge.ForXTransfer.entity.Customer;
 import com.spiralforge.ForXTransfer.repository.AccountRepository;
 import com.spiralforge.ForXTransfer.repository.CustomerRepository;
 import com.spiralforge.ForXTransfer.repository.TransactionRepository;
@@ -28,7 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public LoginResponseDto checkLogin(@Valid LoginRequestDto loginRequestDto) {
 		log.info("For checking whether the credentials are valid or not");
-		Customer customer=new Customer();
+		Customer customer = customerReopsitory.findByMobileNumberAndPassword(loginRequestDto.getMobileNumber(),
+				loginRequestDto.getPassword());
 		return null;
 	}
 }

@@ -8,4 +8,6 @@ import com.spiralforge.ForXTransfer.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
+	Customer findByMobileNumberAndPassword(Long mobileNumber, String password);
+
 }

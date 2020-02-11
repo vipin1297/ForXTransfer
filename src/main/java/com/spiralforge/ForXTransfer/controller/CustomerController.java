@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spiralforge.ForXTransfer.constants.ApplicationConstants;
 import com.spiralforge.ForXTransfer.dto.LoginRequestDto;
 import com.spiralforge.ForXTransfer.dto.LoginResponseDto;
+import com.spiralforge.ForXTransfer.exception.CustomerNotFoundException;
 import com.spiralforge.ForXTransfer.service.CustomerService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ public class CustomerController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDto> checkLogin(@Valid @RequestBody LoginRequestDto loginRequestDto)
-			throws UserNotFoundException {
+			throws CustomerNotFoundException {
 		log.info("For checking whether the person is staff or a customer");
 		LoginResponseDto loginResponse = customerService.checkLogin(loginRequestDto);
 		log.info(ApplicationConstants.LOGIN_SUCCESSMESSAGE);

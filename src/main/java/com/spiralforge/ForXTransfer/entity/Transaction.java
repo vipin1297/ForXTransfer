@@ -28,6 +28,8 @@ public class Transaction {
 	private Account account;
 	private Long toAccount;
 	private Double amount;
+	private String transactionType;
+	private String currency;
 	private String transactionStatus;
 	private LocalDateTime transactionDate;
 }
